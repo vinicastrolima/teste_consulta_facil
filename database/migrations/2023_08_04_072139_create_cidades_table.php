@@ -12,8 +12,8 @@ class CreateCidadesTable extends Migration
             $table->bigIncrements('id');
             $table->string('nome', 100);
             $table->string('estado', 100);
-            $table->timestamps(); // Isso cria os campos created_at e updated_at
-            $table->softDeletes(); // Isso cria o campo deleted_at para soft deletes
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
