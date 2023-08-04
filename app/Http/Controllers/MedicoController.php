@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Medico;
 use App\Models\Paciente;
+use App\Models\Cidade;
+
 
 
 class MedicoController extends Controller
@@ -17,7 +19,9 @@ class MedicoController extends Controller
     public function index()
     {
         $medicos = Medico::all();
-        return response()->json($medicos);
+
+        return response()->json(['medicos' => $medicos], 201);
+
     }
 
     /**
@@ -42,8 +46,10 @@ class MedicoController extends Controller
 
     public function medicosPorCidade($idCidade)
     {
-        $medicos = Medico::where('cidade_id', $idCidade)->get();
-        return response()->json($medicos);
+        $cidade = Cidade::findOrFail($idCidade);
+        $medicos = $cidade->medicos;
+
+        return response()->json(['medicos' => $medicos]);
     }
 
     public function vincularPaciente($idMedico)
@@ -65,7 +71,8 @@ class MedicoController extends Controller
 
         $medico->pacientes()->attach($data['paciente_id']);
 
-        return response()->json(['medico' => $medico, 'paciente' => $paciente]);
+        return response()->json(['medico' => $medico, 'paciente' => $paciente],200);
+        
     }
 
     /**

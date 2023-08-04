@@ -16,7 +16,7 @@ class CidadeController extends Controller
     public function index()
     {
         $cidades = Cidade::all();
-        return response()->json($cidades);
+        return response()->json(['cidades' => $cidades], 201);
     }
 
     /**
