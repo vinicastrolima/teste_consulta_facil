@@ -1,64 +1,64 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h1>Configuração do Ambiente de Desenvolvimento Laravel</h1>
+  <p>Este é um guia passo a passo para configurar o ambiente de desenvolvimento Laravel usando o Laravel Sail no Windows e Linux.</p>
+  
+  <h2>Pré-requisitos:</h2>
+  <ol>
+    <li>Git: Certifique-se de ter o Git instalado em sua máquina para clonar o repositório do projeto Laravel.</li>
+    <li>PHP: Tenha o PHP instalado em sua máquina.</li>
+    <li>Composer: Instale o Composer para gerenciar as dependências do Laravel.</li>
+    <li>Docker: Certifique-se de que o Docker Desktop esteja instalado e em execução para usar o Laravel Sail.</li>
+  </ol>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+  <h2>Passo 1: Clonar o Repositório</h2>
+  <pre><code>
+    git clone https://github.com/seu-usuario/seu-repositorio.git
+    cd seu-repositorio
+  </code></pre>
 
-## About Laravel
+  <h2>Passo 2: Instalar as Dependências</h2>
+  <p>Antes de instalar o Laravel Sail, execute os seguintes comandos para atualizar e instalar as dependências:</p>
+  <pre><code>
+    composer update
+    composer install
+  </code></pre>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+  <h2>Passo 3: Instalar o Laravel Sail</h2>
+  <p>O Composer instalará automaticamente todas as dependências, incluindo o Laravel Sail:</p>
+  <pre><code>composer require laravel/sail --dev</code></pre>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+  <h2>Passo 4: Configurar o Arquivo .env</h2>
+  <p>Renomeie o arquivo .env.example para .env. Configure corretamente os detalhes do banco de dados (DB_CONNECTION, DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME e DB_PASSWORD) no arquivo .env.</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+  <h2>Passo 5: Iniciar os Contêineres com o Laravel Sail</h2>
+  <pre><code>sail up</code></pre>
 
-## Learning Laravel
+  <h2>Passo 6: Rodar as Migrations e Seeders</h2>
+  <pre><code>
+    sail artisan migrate
+    sail artisan db:seed
+  </code></pre>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+  <h2>Passo 7: Configurar a Chave de Criptografia</h2>
+  <pre><code>sail artisan key:generate</code></pre>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+  <h2>Passo 8: Configurar o JWT (opcional)</h2>
+  <p>Se o projeto utiliza autenticação JWT, você pode configurá-lo com as seguintes etapas:</p>
+  
+  <p>Passo 8.1: Instalar o pacote JWT Auth:</p>
+  <pre><code>composer require tymon/jwt-auth</code></pre>
 
-## Laravel Sponsors
+  <p>Passo 8.2: Publicar as configurações do JWT:</p>
+  <pre><code>php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"</code></pre>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+  <p>Passo 8.3: Gerar a chave secreta do JWT:</p>
+  <pre><code>php artisan jwt:secret</code></pre>
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+  <p>Após executar essas etapas, o JWT Auth estará configurado e pronto para ser usado no seu projeto Laravel.</p>
+</body>
+</html>
