@@ -6,24 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCidadesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('cidades', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->bigIncrements('id');
+            $table->string('nome', 100);
+            $table->string('estado', 100);
+            $table->timestamps(); // Isso cria os campos created_at e updated_at
+            $table->softDeletes(); // Isso cria o campo deleted_at para soft deletes
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('cidades');
