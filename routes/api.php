@@ -27,3 +27,9 @@ Route::apiResource('cidades', CidadeController::class);
 Route::apiResource('medicos', MedicoController::class);
 Route::apiResource('pacientes', PacienteController::class);
 Route::apiResource('medicos_pacientes', MedicoPacienteController::class);
+
+
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
+Route::post('refresh', 'AuthController@refresh');
+Route::post('me', 'AuthController@me');
