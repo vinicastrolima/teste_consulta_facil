@@ -43,6 +43,8 @@ class MedicoController extends Controller
         return response()->json(['medico' => $medico]);
     }
 
+    //Teste de envio
+
 
     public function medicosPorCidade($idCidade)
     {
