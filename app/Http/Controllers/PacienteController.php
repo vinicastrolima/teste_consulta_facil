@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Paciente;
+use App\Models\Medico;
+
+
 
 class PacienteController extends Controller
 {
@@ -11,10 +15,14 @@ class PacienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id_medico)
     {
-        //
+        $medico = Medico::findOrFail($id_medico);
+        $pacientes = $medico->pacientes;
+
+        return response()->json($pacientes);
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -24,7 +32,15 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|string|max:14|unique:pacientes,cpf',
+            'celular' => 'required|string|max:20',
+        ]);
+
+        $paciente = Paciente::create($data);
+
+        return response()->json(['data' => $paciente], 201);
     }
 
     /**
@@ -47,7 +63,15 @@ class PacienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = request()->validate([
+            'nome' => 'sometimes|string|max:100',
+            'celular' => 'sometimes|string|max:20',
+        ]);
+
+        $paciente = Paciente::findOrFail($id);
+        $paciente->update($data);
+
+        return response()->json(['paciente' => $paciente]);
     }
 
     /**

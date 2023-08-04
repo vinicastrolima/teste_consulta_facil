@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             MedicosTableSeeder::class,
             PacientesTableSeeder::class,
             UsersTableSeeder::class,
+            MedicoPacienteSeeder::class,
         ]);
     }
 }

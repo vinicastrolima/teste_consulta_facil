@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Medico;
+use App\Models\Paciente;
+
 
 class MedicoController extends Controller
 {
@@ -13,7 +16,8 @@ class MedicoController extends Controller
      */
     public function index()
     {
-        //
+        $medicos = Medico::all();
+        return response()->json($medicos);
     }
 
     /**
@@ -22,9 +26,46 @@ class MedicoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $data = request()->validate([
+            'nome' => 'required|string|max:100',
+            'especialidade' => 'required|string|max:100',
+            'cidade_id' => 'required|exists:cidades,id',
+        ]);
+
+        $medico = Medico::create($data);
+
+        return response()->json(['medico' => $medico]);
+    }
+
+
+    public function medicosPorCidade($idCidade)
+    {
+        $medicos = Medico::where('cidade_id', $idCidade)->get();
+        return response()->json($medicos);
+    }
+
+    public function vincularPaciente($idMedico)
+    {
+        $data = request()->validate([
+            'medico_id' => 'required|exists:medicos,id',
+            'paciente_id' => 'required|exists:pacientes,id',
+        ]);
+
+        $medico = Medico::find($idMedico);
+        if (!$medico) {
+            return response()->json(['message' => 'Médico não encontrado'], 404);
+        }
+
+        $paciente = Paciente::find($data['paciente_id']);
+        if (!$paciente) {
+            return response()->json(['message' => 'Paciente não encontrado'], 404);
+        }
+
+        $medico->pacientes()->attach($data['paciente_id']);
+
+        return response()->json(['medico' => $medico, 'paciente' => $paciente]);
     }
 
     /**

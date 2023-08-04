@@ -2,10 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\CidadeController;
-use App\Http\Controllers\Api\MedicoController;
-use App\Http\Controllers\Api\PacienteController;
-use App\Http\Controllers\Api\MedicoPacienteController;
+use App\Http\Controllers\CidadeController;
+use App\Http\Controllers\MedicoController;
+use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\MedicoPacienteController;
+use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +25,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::apiResource('cidades', CidadeController::class);
-Route::apiResource('medicos', MedicoController::class);
-Route::apiResource('pacientes', PacienteController::class);
-Route::apiResource('medicos_pacientes', MedicoPacienteController::class);
+//Rotas Públicas
+Route::get('medicos', [MedicoController::class, 'index']);
+Route::get('cidades', [CidadeController::class, 'index']);
+Route::get('cidades/{id_cidade}/medicos', [MedicoController::class, 'medicosPorCidade']);
+
+//Rotas Privadas
+
+Route::get('medicos/{id_medico}/pacientes', [PacienteController::class, 'index'])->middleware('jwt.auth');
+Route::post('medicos/{id_medico}/pacientes', [MedicoController::class, 'vincularPaciente'])->middleware('jwt.auth');
+Route::post('medicos', [MedicoController::class, 'store'])->middleware('jwt.auth');
+Route::post('pacientes', [PacienteController::class, 'store'])->middleware('jwt.auth');
+Route::put('pacientes/{id}', [PacienteController::class, 'update'])->middleware('jwt.auth');
 
 
-Route::post('login', 'AuthController@login');
-Route::post('logout', 'AuthController@logout');
-Route::post('refresh', 'AuthController@refresh');
-Route::post('me', 'AuthController@me');
+Route::post('login', [AuthController::class, 'login']);
+Route::get('users', [AuthController::class, 'login'])->middleware('jwt.auth');

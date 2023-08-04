@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Models\User;
+
 
 class AuthController extends Controller
 {
@@ -24,6 +26,12 @@ class AuthController extends Controller
         Auth::logout();
 
         return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    public function getAllUsers()
+    {
+        $users = User::get();
+        return response()->json($users);
     }
 
     public function refresh()
