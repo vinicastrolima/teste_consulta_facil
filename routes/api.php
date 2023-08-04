@@ -25,19 +25,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+//Login
+Route::post('login', [AuthController::class, 'login']);
+
 //Rotas Públicas
 Route::get('medicos', [MedicoController::class, 'index']);
 Route::get('cidades', [CidadeController::class, 'index']);
 Route::get('cidades/{id_cidade}/medicos', [MedicoController::class, 'medicosPorCidade']);
 
 //Rotas Privadas
+Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::get('medicos/{id_medico}/pacientes', [PacienteController::class, 'index']);
+    Route::post('medicos/{id_medico}/pacientes', [MedicoController::class, 'vincularPaciente']);
+    Route::post('medicos', [MedicoController::class, 'store']);
+    Route::post('pacientes', [PacienteController::class, 'store']);
+    Route::put('pacientes/{id}', [PacienteController::class, 'update']);
+    Route::get('users', [AuthController::class, 'login']);
+});
 
-Route::get('medicos/{id_medico}/pacientes', [PacienteController::class, 'index'])->middleware('jwt.auth');
-Route::post('medicos/{id_medico}/pacientes', [MedicoController::class, 'vincularPaciente'])->middleware('jwt.auth');
-Route::post('medicos', [MedicoController::class, 'store'])->middleware('jwt.auth');
-Route::post('pacientes', [PacienteController::class, 'store'])->middleware('jwt.auth');
-Route::put('pacientes/{id}', [PacienteController::class, 'update'])->middleware('jwt.auth');
 
 
-Route::post('login', [AuthController::class, 'login']);
-Route::get('users', [AuthController::class, 'login'])->middleware('jwt.auth');
