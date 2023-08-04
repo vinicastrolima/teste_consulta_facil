@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CidadesTableSeeder::class,
             MedicosTableSeeder::class,
             PacientesTableSeeder::class,
+            UsersTableSeeder::class,
         ]);
     }
 }
