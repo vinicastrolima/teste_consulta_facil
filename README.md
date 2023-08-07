@@ -4,9 +4,30 @@
   <meta charset="UTF-8">
 </head>
 <body>
+  <div align="center">
+    <h1>Teste Consulta Fácil</h1>
+  </div>
+
+  <p align="center">
+    <strong>Este projeto foi desenvolvido no ambiente Linux. Caso você esteja clonando o projeto em um ambiente Windows e encontre problemas com caminhos de arquivo longos, siga as instruções abaixo para configurar o Git corretamente:</strong>
+  </p>
+
+  <div align="center">
+    <pre>
+      <code>git config --global core.longpaths true</code>
+    </pre>
+  </div>
+
+  <p align="center">
+    Em seguida, acesse a pasta do projeto via terminal e utilize o comando <code>git checkout</code>.
+  </p>
+
+  <hr>
+
   <h1>Configuração do Ambiente de Desenvolvimento Laravel</h1>
+
   <p>Este é um guia passo a passo para configurar o ambiente de desenvolvimento Laravel usando o Laravel Sail no Windows e Linux.</p>
-  
+
   <h2>Pré-requisitos:</h2>
   <ol>
     <li>Git: Certifique-se de ter o Git instalado em sua máquina para clonar o repositório do projeto Laravel.</li>
@@ -17,8 +38,8 @@
 
   <h2>Passo 1: Clonar o Repositório</h2>
   <pre><code>
-    git clone https://github.com/seu-usuario/seu-repositorio.git
-    cd seu-repositorio
+    git clone https://github.com/vinicastrolima/teste_consulta_facil.git
+    cd teste_consulta_facil
   </code></pre>
 
   <h2>Passo 2: Instalar as Dependências</h2>
@@ -40,14 +61,14 @@
 
   <h2>Passo 6: Rodar as Migrations e Seeders</h2>
   <pre><code>
-    sail artisan migrate
-    sail artisan db:seed
+    php artisan migrate
+    php artisan db:seed
   </code></pre>
 
   <h2>Passo 7: Configurar a Chave de Criptografia</h2>
-  <pre><code>sail artisan key:generate</code></pre>
+  <pre><code>php artisan key:generate</code></pre>
 
-  <h2>Passo 8: Configurar o JWT (opcional)</h2>
+  <h2>Passo 8: Configurar o JWT</h2>
   <p>Se o projeto utiliza autenticação JWT, você pode configurá-lo com as seguintes etapas:</p>
   
   <p>Passo 8.1: Instalar o pacote JWT Auth:</p>
