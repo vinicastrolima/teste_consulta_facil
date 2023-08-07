@@ -11,16 +11,18 @@
   <p align="center">
     <strong>Este projeto foi desenvolvido no ambiente Linux. Caso você esteja clonando o projeto em um ambiente Windows e encontre problemas com caminhos de arquivo longos, siga as instruções abaixo para configurar o Git corretamente:</strong>
   </p>
-
-  <div align="center">
+  <ol>
+    <li>Abra o seu terminal utilizando a ferramenta de administrador</li>
+    <li>Em seguida, rode o comando:</li>
     <pre>
       <code>git config --global core.longpaths true</code>
     </pre>
-  </div>
-
-  <p align="center">
-    Em seguida, acesse a pasta do projeto via terminal e utilize o comando <code>git checkout</code>.
-  </p>
+    <li>Feito isso, acesse a pasta do projeto via terminal, e execute o seguinte comando:.</li>
+      <pre>
+        <code>git checkout</code>
+      </pre>
+    <li>Feito isso, os arquivos serão restaurados</li>
+  </ol>
 
   <hr>
 
